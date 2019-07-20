@@ -1,6 +1,4 @@
-$.ajaxSetup({
-    async: false
-  });
+$.ajaxSetup({ async: false });
 
 function getData() {
   var markers = new Array;  
@@ -33,22 +31,30 @@ function initMap() {
   
   // Loop through array of markers & place each one on the map  
   for( i = 0; i < markers.length; i++ ) {
-      var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
-      bounds.extend(position);
-      marker = new google.maps.Marker({
-          position: position,
-          map: map
-      });
-      
-      // Allow each marker to have an info window    
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-          return function() {
-              infoWindow.setContent(infoWindowContent[i][0]);
-              infoWindow.open(map, marker);
-          }
-      })(marker, i));
+    var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
+    bounds.extend(position);
+    marker = new google.maps.Marker({
+      position: position,
+      map: map
+    });      
+    
+    // Allow each marker to have an info window    
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+        infoWindow.setContent(infoWindowContent[i][0]);
+        infoWindow.open(map, marker);
+        // Centre map according to clicked marker / position
+        map.setZoom(4);
+        map.setCenter(marker.getPosition());
+      }
+    })(marker, i));
 
-      // Automatically center the map fitting all markers on the screen
-      map.fitBounds(bounds);
+    // close info window when map is clicked
+    google.maps.event.addListener(map, 'click', function() {
+      infoWindow.close();
+    });
+
+    // Automatically center the map fitting all markers on the screen
+    map.fitBounds(bounds);
   }  
 }

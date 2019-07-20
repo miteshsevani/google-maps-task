@@ -12,11 +12,13 @@ export class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {}
-  };
-
+    selectedPlace: {},
+    center: {},
+    zoom: 3
+  };    
+  
   getMarkers() {
-    return data.map((location, key) => {          
+    return data.map((location, key) => {
       return (
         <Marker
           key={key}
@@ -30,14 +32,23 @@ export class MapContainer extends Component {
       )
     })
   }
-  onMarkerClick = (props, marker, e) => {
+  onMarkerClick = (props, marker, e) => {    
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
-      showingInfoWindow: true
+      showingInfoWindow: true,
+      center: props.position,
+      zoom: 4      
     });
   }
-
+  onMapClick = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      });
+    }
+  }
   onClose = () => {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -50,9 +61,11 @@ export class MapContainer extends Component {
    render() {
     return (
       <Map google={this.props.google}
-        zoom={3}
+        onClick = { this.onMapClick }
+        zoom={this.state.zoom}
         style={mapStyles}
-        initialCenter={{ lat: 47, lng: 29}}
+        initialCenter={{lat: 47,lng: 29}}     
+        center={this.state.center}   
       >        
 
         { this.getMarkers() }
