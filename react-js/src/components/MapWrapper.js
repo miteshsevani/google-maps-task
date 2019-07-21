@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
-const data = require('../data/locations.json');
-
 const mapStyles = {
   width: '100%',
   height: '100%'
@@ -17,7 +15,7 @@ export class MapContainer extends Component {
     zoom: 3
   };    
   
-  getMarkers() {
+  getMarkers(data) {
     return data.map((location, key) => {
       return (
         <Marker
@@ -68,7 +66,7 @@ export class MapContainer extends Component {
         center={this.state.center}   
       >        
 
-        { this.getMarkers() }
+        { this.getMarkers(this.props.data) }
 
         <InfoWindow
           marker={this.state.activeMarker}
