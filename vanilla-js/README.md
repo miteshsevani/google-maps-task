@@ -1,11 +1,7 @@
 Omnifi Web Developer Test
 Author: Mitesh Sevani
 
-This is the React JS version of Omnifi's web developer test using google maps.
-
-Create React App has been used to initialse the app.
-
-Google Maps React library has been used for the map functionality.
+This is the Vanilla JS version of Omnifi's web developer test using google maps.
 
 I have used my own Google Maps API Key
 
@@ -13,6 +9,6 @@ Due to blocking of CORS policy: No 'Access-Control-Allow-Origin' for the locatio
 on chrome via the Allow-Control-Allow-Origin: * extention - chrome://extensions/?id=nlfbmbojpeacfghkpbjhddihlkkiljbi
 
 
-View Demo on;
+View demo on;
 
-React JS - http://www.miteshsevani.com/omnifi/react-js/
+http://www.miteshsevani.com/omnifi/vanilla-js/

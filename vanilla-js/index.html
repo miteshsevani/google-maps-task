@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Omnifi</title>  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src=js/script.js></script>    
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }      
-      
-    </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
+  <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
 </head>
 <body>
-  <div id="map"></div>
+  <header>
+    <h1>Ominifi: Web technical test - Vanilla JS</h1>
+    <h2>Mitesh Sevani</h2>
+  </header>
+  <section>
+    <div class="pins">
+      <h3>Locations</h3>
+      <ul id="locations"></ul>
+    </div>
+    <div id="map"></div>
+  </section>
   
+  <script src=js/script.js></script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUhy6mdGjpm3QadNfSQwIX7qtCz1yYTwk&callback=initMap">
   </script>

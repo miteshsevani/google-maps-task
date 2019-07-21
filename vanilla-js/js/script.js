@@ -1,16 +1,34 @@
 $.ajaxSetup({ async: false });
 
 function getData() {
-  var markers = new Array;  
-  var countries = new Array;  
-  $.getJSON( "data/locations.json", function( data ) {    
+  
+  const feed = 'data/locations.json';
+
+  /* #######
+  Can only use if CORS is disable din the browser due to CORS policy: No 'Access-Control-Allow-Origin'
+  //const feed = 'https://s3-eu-west-1.amazonaws.com/omnifi/techtests/locations.json';
+  ######## */
+
+  let markers = new Array;
+  let countries = new Array;    
+
+  $.getJSON(feed, function( data ) {    
     for(i = 0; i < data.length; i++) {
       markers.push([data[i].latitude, data[i].longitude]);
-      countries.push(['<div>' + data[i].name + '</div>']);
+      countries.push([data[i].name, data[i].capital]);
     }        
   });
-  return { markers, countries};  
+  return { markers, countries };
 }
+
+// Display locations
+(function() {
+  let locations = "";
+  getData().countries.map((value) => {
+    locations += `<li>${value[0]}</li>`;
+  })
+  document.getElementById('locations').innerHTML = locations;  
+}());
 
 function initMap() {
   var map;
@@ -41,7 +59,7 @@ function initMap() {
     // Allow each marker to have an info window    
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
       return function() {
-        infoWindow.setContent(infoWindowContent[i][0]);
+        infoWindow.setContent(`<div>${infoWindowContent[i][0]}, ${infoWindowContent[i][1]}</div>`);
         infoWindow.open(map, marker);
         // Centre map according to clicked marker / position
         map.setZoom(4);
